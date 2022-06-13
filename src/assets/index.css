@@ -35,4 +35,8 @@ body {
       @apply hover:shadow-2xl;
       @apply hover:cursor-pointer;
    }
+
+   .transition-1000 {
+      @apply transition-all duration-1000;
+   }
 }
