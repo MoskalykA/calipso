@@ -6,7 +6,7 @@ import Knowledges from "./pages/Knowledges"
 function App() {
     return (
         <div className="flex h-screen overflow-hidden">
-            <div className="flex flex-col justify-between bg-zinc-800/50 p-4">
+            <div className="flex flex-col justify-between bg-zinc-800/50 p-4 cool-border rounded-r">
                 <div className="space-y-1.5">
                     <Link to="/" className="button-header">
                         <FcHome/>

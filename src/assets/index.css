@@ -39,4 +39,8 @@ body {
    .transition-1000 {
       @apply transition-all duration-1000;
    }
+
+   .cool-border {
+      @apply border border-zinc-700;
+   }
 }
