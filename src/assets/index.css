@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+   @apply bg-zinc-900;
+   @apply text-white;
+}
+
+*::-webkit-scrollbar {
+   @apply w-3;
+}
+
+*::-webkit-scrollbar-thumb {
+   @apply bg-zinc-800/50 rounded-lg;
+}
+
+@layer components {
+   .button-header {
+      @apply border;
+      @apply border-zinc-700;
+      @apply bg-zinc-900;
+      @apply rounded;
+      @apply font-medium;
+      @apply flex;
+      @apply justify-center;
+      @apply items-center;
+      @apply px-2;
+      @apply py-1;
+      @apply space-x-2;
+      @apply transition-all;
+      @apply ease-in-out;
+      @apply duration-500;
+      @apply hover:bg-zinc-800;
+      @apply hover:shadow-2xl;
+      @apply hover:cursor-pointer;
+   }
+}
