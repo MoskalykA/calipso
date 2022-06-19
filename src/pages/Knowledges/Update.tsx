@@ -5,9 +5,9 @@ import { Link, useParams } from "react-router-dom"
  
 function Update() {
     const { id } = useParams()
-    const refName = useRef({ value: "" })
-    const refImage = useRef({ value: "" })
-    const refLink = useRef({ value: "" })
+    const refName = useRef<HTMLInputElement>(null)
+    const refImage = useRef<HTMLInputElement>(null)
+    const refLink = useRef<HTMLInputElement>(null)
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
     const [link, setLink] = useState("")
@@ -21,9 +21,9 @@ function Update() {
 
     listen("send_knowledges_data", (e: { payload: string }) => {
         const parse = JSON.parse(e.payload)
-        refName.current.value = parse.name
-        refImage.current.value = parse.image
-        refLink.current.value = parse.link
+        refName.current!.value = parse.name
+        refImage.current!.value = parse.image
+        refLink.current!.value = parse.link
 
         setName(parse.name)
         setImage(parse.image)
