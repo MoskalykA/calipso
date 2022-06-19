@@ -1,7 +1,10 @@
 import {Route, Routes, Link} from "react-router-dom"
 import {FcHome, FcIdea, FcSettings, FcFolder} from "react-icons/fc"
 import Home from "./pages/Home"
-import Knowledges from "./pages/Knowledges"
+
+import KnowledgesIndex from "./pages/Knowledges/Index"
+import KnowledgesCreate from "./pages/Knowledges/Create"
+import KnowledgesUpdate from "./pages/Knowledges/Update"
 
 function App() {
     return (
@@ -18,7 +21,7 @@ function App() {
                         <h1>Ideas</h1>
                     </Link>
 
-                    <Link to="/knowledges" className="button-header">
+                    <Link to="/knowledges/index" className="button-header">
                         <FcFolder/>
                         <h1>Knowledges</h1>
                     </Link>
@@ -36,7 +39,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/ideas" element={<Home/>}/>
-                    <Route path="/knowledges" element={<Knowledges/>}/>
+
+                    <Route path="/knowledges/index" element={<KnowledgesIndex/>}/>
+                    <Route path="/knowledges/create" element={<KnowledgesCreate/>}/>
+                    <Route path="/knowledges/update/:id" element={<KnowledgesUpdate/>}/>
 
                     <Route path="/settings" element={<Home/>}/>
                 </Routes>
