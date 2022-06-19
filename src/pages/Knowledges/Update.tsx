@@ -58,7 +58,7 @@ function Update() {
 
                 <div className="flex justify-center items-center">
                     <Link to={"/knowledges/index"} onClick={() => {
-                        invoke("update_knowledges", {
+                        invoke("update_knowledge_data", {
                             id: Number(id),
                             name,
                             image,

@@ -1,137 +1,110 @@
 use std::fs;
-use std::path::Path;
 use serde::{Deserialize, Serialize};
 use tauri::Window;
-use crate::calypso::Calypso;
+use crate::calypso::{Calypso, initSaveFile};
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct Knowledges {
+pub struct Knowledge {
    pub id: i8,
    pub name: String,
    pub image: String,
    pub link: String
 }
 
-impl Default for Knowledges {
+impl Default for Knowledge {
    fn default() -> Self {
-         Knowledges { id: -1, name: "".to_string(), image: "".to_string(), link: "".to_string() }
+      Knowledge { id: -1, name: "".to_string(), image: "".to_string(), link: "".to_string() }
    }
 }
 
-fn init_knowledges_data() {
-   if !Path::new("app.json").exists() {
-      let data_base = Calypso {
-         knowledges: Vec::new()
-      };
-      fs::write("app.json", serde_json::to_string(&data_base).unwrap()).unwrap();
-   }
-}
-
-fn add_knowledges_to_data(name: String, image: String, link: String, id: Option<i8>) {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
-
-   let file_content = fs::read_to_string("app.json").unwrap();
-   let mut to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
+fn addKnowledgeData(name: String, image: String, link: String, id: Option<i8>) {
+   let fileContent = fs::read_to_string("app.json").unwrap();
+   let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
 
    if id.is_none() {
-      let default_knowledges = Knowledges::default();
-      let knowledges = to_json.knowledges.last().unwrap_or(&default_knowledges);
-      to_json.knowledges.push(Knowledges { id: knowledges.id + 1, name: name, image: image, link: link });
+      let defaultKnowledge = Knowledge::default();
+      let lastKnowledge = toJson.knowledges.last().unwrap_or(&defaultKnowledge);
+      toJson.knowledges.push(Knowledge { id: lastKnowledge.id + 1, name: name, image: image, link: link });
    } else {
-      to_json.knowledges.push(Knowledges { id: id.unwrap(), name: name, image: image, link: link });
+      toJson.knowledges.push(Knowledge { id: id.unwrap(), name: name, image: image, link: link });
    }
 
-   fs::write("app.json", serde_json::to_string(&to_json).unwrap()).unwrap();
+   fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
 }
 
-fn delete_knowledges_to_data(id: i8) {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
+fn deleteKnowledgeData(id: i8) {
+   let fileContent = fs::read_to_string("app.json").unwrap();
+   let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
+   toJson.knowledges.remove((id - 1).try_into().unwrap());
 
-   let file_content = fs::read_to_string("app.json").unwrap();
-   let mut to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
-   to_json.knowledges.remove((id - 1).try_into().unwrap());
-
-   fs::write("app.json", serde_json::to_string(&to_json).unwrap()).unwrap();
+   fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
 }
 
-fn update_knowledges_to_data(id: i8, name: String, image: String, link: String) {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
-
-   delete_knowledges_to_data(id);
-   add_knowledges_to_data(name, image, link, Some(id));
+fn updateKnowledgeData(id: i8, name: String, image: String, link: String) {
+   initSaveFile();
+   deleteKnowledgeData(id);
+   addKnowledgeData(name, image, link, Some(id));
 }
 
-fn get_knowledges_data() -> Calypso {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
-
-   let file_content = fs::read_to_string("app.json").unwrap();
-   let to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
-   to_json
+fn getKnowledgesData() -> Vec<Knowledge> {
+   let fileContent = fs::read_to_string("app.json").unwrap();
+   let toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
+   toJson.knowledges
 }
 
-fn find_knowledges_by_id(id: i8) -> Knowledges {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
-
-   let file_content = fs::read_to_string("app.json").unwrap();
-   let mut to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
-   for knowledges in to_json.knowledges {
-      if knowledges.id == id {
-         return knowledges
+fn findKnowledgeById(id: i8) -> Knowledge {
+   let fileContent = fs::read_to_string("app.json").unwrap();
+   let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
+   for knowledge in toJson.knowledges {
+      if knowledge.id == id {
+         return knowledge
       }
    }
 
-   Knowledges::default()
+   Knowledge::default()
 }
 
-fn send_knowledges_data(window: Window) {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
-   
-   let knowledges_data = get_knowledges_data();
-   let from_json = serde_json::to_string(&knowledges_data).unwrap();
-   window.emit("send_knowledges_data", from_json).unwrap();
+fn sendKnowledges(window: Window) {
+   let knowledgesData = getKnowledgesData();
+   let fromJson = serde_json::to_string(&knowledgesData).unwrap();
+   window.emit("sendKnowledges", fromJson).unwrap();
 }
 
-#[tauri::command]
-pub fn add_knowledges(window: Window, name: String, image: String, link: String) {
-   add_knowledges_to_data(name, image, link, None);
-   send_knowledges_data(window);
+fn sendKnowledge(window: Window, knowledge: Knowledge) {
+   let fromJson = serde_json::to_string(&knowledge).unwrap();
+   window.emit("sendKnowledge", fromJson).unwrap();
 }
 
 #[tauri::command]
-pub fn update_knowledges(window: Window, id: i8, name: String, image: String, link: String) {
-   update_knowledges_to_data(id, name, image, link);
-   send_knowledges_data(window);
+pub fn add_knowledge_data(window: Window, name: String, image: String, link: String) {
+   initSaveFile();
+   addKnowledgeData(name, image, link, None);
+   sendKnowledges(window);
+}
+
+#[tauri::command]
+pub fn update_knowledge_data(window: Window, id: i8, name: String, image: String, link: String) {
+   initSaveFile();
+   updateKnowledgeData(id, name, image, link);
+   sendKnowledges(window);
 }
 
 #[tauri::command]
 pub fn request_knowledges_data(window: Window) {
-   send_knowledges_data(window);
+   initSaveFile();
+   sendKnowledges(window);
 }
 
 #[tauri::command]
-pub fn request_knowledges_data_with_id(window: Window, id: i8) {
-   if !Path::new("app.json").exists() {
-      init_knowledges_data();
-   }
+pub fn request_knowledge_data_by_id(window: Window, id: i8) {
+   initSaveFile();
    
-   let knowledges_data =  find_knowledges_by_id(id);
-   let from_json = serde_json::to_string(&knowledges_data).unwrap();
-   window.emit("send_knowledges_data", from_json).unwrap();
+   let knowledgeData = findKnowledgeById(id);
+   sendKnowledge(window, knowledgeData);
 }
 
 #[tauri::command]
-pub fn delete_knowledges_data(id: i8) {
-   delete_knowledges_to_data(id);
+pub fn delete_knowledge_data(id: i8) {
+   initSaveFile();
+   deleteKnowledgeData(id);
 }

@@ -12,9 +12,9 @@ function Index() {
         }, 100)
     }, [])
 
-    listen("send_knowledges_data", (e: { payload: string }) => {
+    listen("sendKnowledges", (e: { payload: string }) => {
         const parse = JSON.parse(e.payload)
-        setData(parse.knowledges)
+        setData(parse)
     })
 
     return (
@@ -27,7 +27,7 @@ function Index() {
 
             <div className="grid grid-cols-2 gap-4 p-4">
                 {data.map((knowledges: { id: number, name: string, image: string, link: string }) => (
-                    <div key={knowledges.id} className="bg-zinc-800/50 rounded-lg hover:cursor-pointer cool-border">
+                    <div key={knowledges.id} className="bg-zinc-800/50 rounded-lg hover:cursor-pointer cool-border flex flex-col justify-center items-center">
                         <img className="rounded-t-lg" src={knowledges.image} alt="icon"/>
 
                         <div className="p-4 space-y-4">
@@ -37,7 +37,7 @@ function Index() {
                                 <a target="_blank" href={knowledges.link} className="button-header font-mono font-normal">Open</a>
                                 
                                 <button onClick={() => {
-                                    invoke("delete_knowledges_data", {
+                                    invoke("delete_knowledge_data", {
                                         id: knowledges.id
                                     })
                                 }} className="button-header font-mono font-normal">
