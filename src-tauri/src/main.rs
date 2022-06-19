@@ -69,9 +69,7 @@ fn delete_knowledges_to_data(id: i8) {
 
   let file_content = fs::read_to_string("app.json").unwrap();
   let mut to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
-  //to_json.knowledges.remove(id.try_into().unwrap());
   to_json.knowledges.remove((id - 1).try_into().unwrap());
-  //println!("{:?}", to_json.knowledges.len());
 
   fs::write("app.json", serde_json::to_string(&to_json).unwrap()).unwrap();
 }
