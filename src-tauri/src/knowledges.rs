@@ -35,7 +35,10 @@ fn addKnowledgeData(name: String, image: String, link: String, id: Option<i8>) {
 fn deleteKnowledgeData(id: i8) {
    let fileContent = fs::read_to_string("app.json").unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
-   toJson.knowledges.remove((id - 1).try_into().unwrap());
+
+   if let Some(knowledge) = toJson.knowledges.iter().position(|x| x.id == id) {
+      toJson.knowledges.remove(knowledge);
+   }
 
    fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
 }

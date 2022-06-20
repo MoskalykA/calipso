@@ -6,28 +6,24 @@ import { Link, useParams } from "react-router-dom"
 function Update() {
     const { id } = useParams()
     const refName = useRef<HTMLInputElement>(null)
-    const refImage = useRef<HTMLInputElement>(null)
-    const refLink = useRef<HTMLInputElement>(null)
+    const refDescription = useRef<HTMLTextAreaElement>(null)
     const [name, setName] = useState("")
-    const [image, setImage] = useState("")
-    const [link, setLink] = useState("")
+    const [description, setDescription] = useState("")
     useEffect(() => {
         setTimeout(() => {
-            invoke("request_knowledge_data_by_id", {
+            invoke("request_idea_data_by_id", {
                 id: Number(id)
             })
         }, 100)
     }, [])
 
-    listen("sendKnowledge", (e: { payload: string }) => {
+    listen("sendIdea", (e: { payload: string }) => {
         const parse = JSON.parse(e.payload)
         refName.current!.value = parse.name
-        refImage.current!.value = parse.image
-        refLink.current!.value = parse.link
+        refDescription.current!.value = parse.description
 
         setName(parse.name)
-        setImage(parse.image)
-        setLink(parse.link)
+        setDescription(parse.description)
     })
 
     return (
@@ -42,27 +38,19 @@ function Update() {
                     </div>
 
                     <div>
-                        <h1 className="font-mono">Image</h1>
-                        <input ref={refImage} onChange={(e) => {
-                            setImage(e.target.value)
-                        }} className="p-1 w-full bg-zinc-900 cool-border rounded font-mono text-white focus:outline-0" type="url"/>
-                    </div>
-
-                    <div>
-                        <h1 className="font-mono">Link</h1>
-                        <input ref={refLink} onChange={(e) => {
-                            setLink(e.target.value)
-                        }} className="p-1 w-full bg-zinc-900 cool-border rounded font-mono text-white focus:outline-0" type="url"/>
+                        <h1 className="font-mono">Description</h1>
+                        <textarea rows={8} ref={refDescription} onChange={(e) => {
+                            setDescription(e.target.value)
+                        }} className="p-1 w-full bg-zinc-900 cool-border rounded font-mono text-white focus:outline-0"/>
                     </div>
                 </div>
 
                 <div className="flex justify-center items-center">
-                    <Link to={"/knowledges/index"} onClick={() => {
-                        invoke("update_knowledge_data", {
+                    <Link to={"/ideas/index"} onClick={() => {
+                        invoke("update_idea_data", {
                             id: Number(id),
                             name,
-                            image,
-                            link
+                            description
                         })
                     }} className="button-header font-mono mb-4 px-4">
                         <h1>Update</h1> 

@@ -2,6 +2,11 @@ import {Route, Routes, Link} from "react-router-dom"
 import {FcHome, FcIdea, FcSettings, FcFolder} from "react-icons/fc"
 import Home from "./pages/Home"
 
+import IdeasIndex from "./pages/Ideas/Index"
+import IdeasCreate from "./pages/Ideas/Create"
+import IdeasUpdate from "./pages/Ideas/Update"
+import IdeasView from "./pages/Ideas/View"
+
 import KnowledgesIndex from "./pages/Knowledges/Index"
 import KnowledgesCreate from "./pages/Knowledges/Create"
 import KnowledgesUpdate from "./pages/Knowledges/Update"
@@ -16,7 +21,7 @@ function App() {
                         <h1>Home</h1>
                     </Link>
 
-                    <Link to="/ideas" className="button-header">
+                    <Link to="/ideas/index" className="button-header">
                         <FcIdea/>
                         <h1>Ideas</h1>
                     </Link>
@@ -39,6 +44,11 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/ideas" element={<Home/>}/>
+
+                    <Route path="/ideas/index" element={<IdeasIndex/>}/>
+                    <Route path="/ideas/create" element={<IdeasCreate/>}/>
+                    <Route path="/ideas/update/:id" element={<IdeasUpdate/>}/>
+                    <Route path="/ideas/view/:id" element={<IdeasView/>}/>
 
                     <Route path="/knowledges/index" element={<KnowledgesIndex/>}/>
                     <Route path="/knowledges/create" element={<KnowledgesCreate/>}/>
