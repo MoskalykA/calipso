@@ -27,10 +27,10 @@ function Index() {
 
             <div className="grid grid-cols-2 gap-4 p-4">
                 {data.map((knowledges: { id: number, name: string, image: string, link: string }) => (
-                    <div key={knowledges.id} className="bg-zinc-800/50 rounded-lg hover:cursor-pointer cool-border flex flex-col justify-center items-center">
+                    <div key={knowledges.id} className="bg-zinc-800/50 rounded-lg hover:cursor-pointer cool-border">
                         <img className="rounded-t-lg" src={knowledges.image} alt="icon"/>
 
-                        <div className="p-4 space-y-4">
+                        <div className="p-4 space-y-4 flex flex-col">
                             <h1 className="text-center font-mono font-semibold leading-none">{knowledges.name}</h1>
 
                             <div className="flex justify-center items-center space-x-4">
