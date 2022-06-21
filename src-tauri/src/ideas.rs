@@ -1,8 +1,7 @@
 use std::fs;
 use serde::{Deserialize, Serialize};
 use tauri::Window;
-use crate::calypso::{Calypso, initSaveFile};
-
+use crate::calypso::{Calypso, initSaveFile, getFilePath};
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Idea {
    pub id: i8,
@@ -17,7 +16,7 @@ impl Default for Idea {
 }
 
 fn addIdeaData(name: String, description: String, id: Option<i8>) {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
 
    if id.is_none() {
@@ -28,18 +27,18 @@ fn addIdeaData(name: String, description: String, id: Option<i8>) {
       toJson.ideas.push(Idea { id: id.unwrap(), name: name, description: description });
    }
 
-   fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
+   fs::write(getFilePath(), serde_json::to_string(&toJson).unwrap()).unwrap();
 }
 
 fn deleteIdeaData(id: i8) {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
 
    if let Some(idea) = toJson.ideas.iter().position(|x| x.id == id) {
       toJson.ideas.remove(idea);
    }
 
-   fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
+   fs::write(getFilePath(), serde_json::to_string(&toJson).unwrap()).unwrap();
 }
 
 fn updateIdeaData(id: i8, name: String, description: String) {
@@ -49,13 +48,13 @@ fn updateIdeaData(id: i8, name: String, description: String) {
 }
 
 fn getIdeasData() -> Vec<Idea> {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
    toJson.ideas
 }
 
 fn findIdeaById(id: i8) -> Idea {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
    for idea in toJson.ideas {
       if idea.id == id {

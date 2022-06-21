@@ -1,7 +1,7 @@
 use std::fs;
 use serde::{Deserialize, Serialize};
 use tauri::Window;
-use crate::calypso::{Calypso, initSaveFile};
+use crate::calypso::{Calypso, initSaveFile, getFilePath};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Knowledge {
@@ -18,7 +18,7 @@ impl Default for Knowledge {
 }
 
 fn addKnowledgeData(name: String, image: String, link: String, id: Option<i8>) {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
 
    if id.is_none() {
@@ -29,18 +29,18 @@ fn addKnowledgeData(name: String, image: String, link: String, id: Option<i8>) {
       toJson.knowledges.push(Knowledge { id: id.unwrap(), name: name, image: image, link: link });
    }
 
-   fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
+   fs::write(getFilePath(), serde_json::to_string(&toJson).unwrap()).unwrap();
 }
 
 fn deleteKnowledgeData(id: i8) {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
 
    if let Some(knowledge) = toJson.knowledges.iter().position(|x| x.id == id) {
       toJson.knowledges.remove(knowledge);
    }
 
-   fs::write("app.json", serde_json::to_string(&toJson).unwrap()).unwrap();
+   fs::write(getFilePath(), serde_json::to_string(&toJson).unwrap()).unwrap();
 }
 
 fn updateKnowledgeData(id: i8, name: String, image: String, link: String) {
@@ -50,13 +50,13 @@ fn updateKnowledgeData(id: i8, name: String, image: String, link: String) {
 }
 
 fn getKnowledgesData() -> Vec<Knowledge> {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
    toJson.knowledges
 }
 
 fn findKnowledgeById(id: i8) -> Knowledge {
-   let fileContent = fs::read_to_string("app.json").unwrap();
+   let fileContent = fs::read_to_string(getFilePath()).unwrap();
    let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
    for knowledge in toJson.knowledges {
       if knowledge.id == id {

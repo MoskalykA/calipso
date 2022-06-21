@@ -5,7 +5,8 @@ use crate::knowledges::Knowledge;
 use crate::ideas::Idea;
 
 lazy_static! {
-   static ref FILE_PATH: String = "app.json".to_string();
+   static ref DIR_PATH: String = "../data".to_string();
+   static ref FILE_PATH: String = "../data/app.json".to_string();
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -14,13 +15,29 @@ pub struct Calypso {
   pub ideas: Vec <Idea>
 }
 
-pub fn saveFileExists() -> bool {
-   Path::new(&FILE_PATH.clone()).exists()
+pub fn getFilePath() -> String {
+   FILE_PATH.clone()
+}
+
+fn getDirPath() -> String {
+   DIR_PATH.clone()
+}
+
+fn fileExists() -> bool {
+   Path::new(&getFilePath()).exists()
+}
+
+fn dirExists() -> bool {
+   Path::new(&getDirPath()).exists()
 }
 
 pub fn initSaveFile() {
-   if saveFileExists() {
+   if fileExists() {
       return
+   }
+
+   if !dirExists() {
+      fs::create_dir(getDirPath());
    }
 
    let dataBase = Calypso {
