@@ -29,8 +29,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "longDescription": "",
+      "identifier": "com.moskalyka.calypso",
+      "longDescription": "Calypso is a small application used to store information.",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
