@@ -5,8 +5,9 @@ use crate::knowledges::Knowledge;
 use crate::ideas::Idea;
 
 lazy_static! {
-   static ref DIR_PATH: String = "../data".to_string();
-   static ref FILE_PATH: String = "../data/app.json".to_string();
+   // ../data only dev
+   static ref DIR_PATH: String = "data".to_string();
+   static ref FILE_PATH: String = "data/app.json".to_string();
 }
 
 #[derive(Debug, Deserialize, Serialize)]
