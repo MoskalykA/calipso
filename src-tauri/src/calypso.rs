@@ -5,9 +5,17 @@ use crate::knowledges::Knowledge;
 use crate::ideas::Idea;
 
 lazy_static! {
-   // ../data only dev
-   static ref DIR_PATH: String = "data".to_string();
-   static ref FILE_PATH: String = "data/app.json".to_string();
+   static ref DIR_PATH: String = if cfg!(dev) {
+      "../data/".to_string()
+   } else {
+      "data".to_string()
+   };
+
+   static ref FILE_PATH: String = if cfg!(dev) {
+      "../data/app.json".to_string()
+   } else {
+      "data/app.json".to_string()
+   };
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -38,7 +46,7 @@ pub fn initSaveFile() {
    }
 
    if !dirExists() {
-      fs::create_dir(getDirPath());
+      fs::create_dir(getDirPath()).unwrap();
    }
 
    let dataBase = Calypso {
