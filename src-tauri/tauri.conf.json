@@ -30,7 +30,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.moskalyka.calypso",
-      "longDescription": "Calypso is a small application used to store information.",
+      "longDescription": "Calypso is an application that aims to store different information like ideas or even interesting articles.",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
