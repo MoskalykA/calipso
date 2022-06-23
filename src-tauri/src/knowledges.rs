@@ -107,7 +107,8 @@ pub fn request_knowledge_data_by_id(window: Window, id: i8) {
 }
 
 #[tauri::command]
-pub fn delete_knowledge_data(id: i8) {
+pub fn delete_knowledge_data(window: Window, id: i8) {
    initSaveFile();
    deleteKnowledgeData(id);
+   sendKnowledges(window);
 }

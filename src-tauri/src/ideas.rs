@@ -105,7 +105,8 @@ pub fn request_idea_data_by_id(window: Window, id: i8) {
 }
 
 #[tauri::command]
-pub fn delete_idea_data(id: i8) {
+pub fn delete_idea_data(window: Window, id: i8) {
    initSaveFile();
    deleteIdeaData(id);
+   sendIdeas(window);
 }
