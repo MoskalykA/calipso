@@ -19,7 +19,7 @@ function Index() {
 
     return (
         <div>
-            <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit transition-1000 hover:cursor-pointer hover:bg-zinc-800 cool-border">
+            <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800 cool-border">
                 <Link to={"/knowledges/create"}>
                     <FcAddImage/>
                 </Link>
@@ -34,17 +34,17 @@ function Index() {
                             <h1 className="text-center font-mono font-semibold leading-none">{knowledges.name}</h1>
 
                             <div className="flex justify-center items-center space-x-4">
-                                <a target="_blank" href={knowledges.link} className="button-header font-mono font-normal">Open</a>
+                                <a target="_blank" href={knowledges.link} className="cool-button font-mono font-normal">Open</a>
                                 
                                 <button onClick={() => {
                                     invoke("delete_knowledge_data", {
                                         id: knowledges.id
                                     })
-                                }} className="button-header font-mono font-normal">
+                                }} className="cool-button font-mono font-normal">
                                     <h1>Delete</h1>
                                 </button>
 
-                                <Link to={"/knowledges/update/" + knowledges.id} className="button-header font-mono font-normal">
+                                <Link to={"/knowledges/update/" + knowledges.id} className="cool-button font-mono font-normal">
                                     <h1>Update</h1>
                                 </Link>
                             </div>

@@ -16,7 +16,7 @@ body {
 }
 
 @layer components {
-   .button-header {
+   .cool-button {
       @apply border;
       @apply border-zinc-700;
       @apply bg-zinc-900;
@@ -36,11 +36,11 @@ body {
       @apply hover:cursor-pointer;
    }
 
-   .transition-1000 {
-      @apply transition-all duration-1000;
+   .cool-border {
+      @apply border border-zinc-700 rounded;
    }
 
-   .cool-border {
-      @apply border border-zinc-700;
+   .cool-transition {
+      @apply transition-all duration-1000;
    }
 }

@@ -40,7 +40,7 @@ function Create() {
                             image,
                             link
                         })
-                    }} className="button-header font-mono mb-4 px-4">
+                    }} className="cool-button font-mono mb-4 px-4">
                         <h1>Create</h1> 
                     </Link>
                 </div>
