@@ -7,7 +7,7 @@ import IdeaType from "../../types/Idea"
 function Index() {
     const [data, setData] = useState<IdeaType[]>([])
     useEffect(() => {
-        invoke("request_ideas_data").then((data: any) => {
+        invoke("request_ideas").then((data: any) => {
             setData(data)
         })
     }, [])
@@ -32,7 +32,7 @@ function Index() {
                                 </Link>
                                 
                                 <button onClick={() => {
-                                    invoke("delete_idea_data", {
+                                    invoke("delete_idea", {
                                         id: ideas.id
                                     }).then((data: any) => {
                                         setData(data)

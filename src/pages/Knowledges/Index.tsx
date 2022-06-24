@@ -7,7 +7,7 @@ import KnowledgeType from "../../types/Knowledge"
 function Index() {
     const [data, setData] = useState<KnowledgeType[]>([])
     useEffect(() => {
-        invoke("request_knowledges_data").then((data: any) => {
+        invoke("request_knowledges").then((data: any) => {
             setData(data)
         })
     }, [])
@@ -32,7 +32,7 @@ function Index() {
                                 <a target="_blank" href={knowledges.link} className="cool-button font-mono font-normal">Open</a>
                                 
                                 <button onClick={() => {
-                                    invoke("delete_knowledge_data", {
+                                    invoke("delete_knowledge", {
                                         id: knowledges.id
                                     }).then((data: any) => {
                                         setData(data)

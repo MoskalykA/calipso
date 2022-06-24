@@ -12,7 +12,7 @@ function Update() {
     const refImage = useRef<HTMLInputElement>(null)
     const refLink = useRef<HTMLInputElement>(null)
     useEffect(() => {
-        invoke("request_knowledge_data_by_id", {
+        invoke("request_knowledge_by_id", {
             id: Number(id)
         }).then((data: any) => {
             refName.current!.value = data.name
@@ -53,7 +53,7 @@ function Update() {
 
                 <div className="flex justify-center items-center">
                     <Link to={"/knowledges/index"} onClick={() => {
-                        invoke("update_knowledge_data", {
+                        invoke("update_knowledge", {
                             id: Number(id),
                             name,
                             image,

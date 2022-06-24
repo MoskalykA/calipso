@@ -7,7 +7,7 @@ function View() {
     const refName = useRef<HTMLInputElement>(null)
     const refDescription = useRef<HTMLTextAreaElement>(null)
     useEffect(() => {
-        invoke("request_idea_data_by_id", {
+        invoke("request_idea_by_id", {
             id: Number(id)
         }).then((data: any) => {
             refName.current!.value = data.name

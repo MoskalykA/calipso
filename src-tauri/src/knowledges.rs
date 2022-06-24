@@ -1,8 +1,8 @@
 use std::fs;
 use serde::{Deserialize, Serialize};
-use crate::calypso::{Calypso, initSaveFile, getFilePath};
+use crate::calypso::{Calypso, init_save_file, get_file_path};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Knowledge {
    pub id: i8,
    pub name: String,
@@ -16,48 +16,48 @@ impl Default for Knowledge {
    }
 }
 
-fn addKnowledgeData(name: String, image: String, link: String, id: Option<i8>) {
-   let fileContent = fs::read_to_string(getFilePath()).unwrap();
-   let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
+fn add_knowledge_data(name: String, image: String, link: String, id: Option<i8>) {
+   let file_content = fs::read_to_string(get_file_path()).unwrap();
+   let mut to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
 
    if id.is_none() {
-      let defaultKnowledge = Knowledge::default();
-      let lastKnowledge = toJson.knowledges.last().unwrap_or(&defaultKnowledge);
-      toJson.knowledges.push(Knowledge { id: lastKnowledge.id + 1, name: name, image: image, link: link });
+      let default_knowledge = Knowledge::default();
+      let last_knowledge = to_json.knowledges.last().cloned().unwrap_or(default_knowledge);
+      to_json.knowledges.push(Knowledge { id: last_knowledge.id + 1, name: name, image: image, link: link });
    } else {
-      toJson.knowledges.push(Knowledge { id: id.unwrap(), name: name, image: image, link: link });
+      to_json.knowledges.push(Knowledge { id: id.unwrap(), name: name, image: image, link: link });
    }
 
-   fs::write(getFilePath(), serde_json::to_string(&toJson).unwrap()).unwrap();
+   fs::write(get_file_path(), serde_json::to_string(&to_json).unwrap()).unwrap();
 }
 
-fn deleteKnowledgeData(id: i8) {
-   let fileContent = fs::read_to_string(getFilePath()).unwrap();
-   let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
+fn delete_knowledge_data(id: i8) {
+   let file_content = fs::read_to_string(get_file_path()).unwrap();
+   let mut to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
 
-   if let Some(knowledge) = toJson.knowledges.iter().position(|x| x.id == id) {
-      toJson.knowledges.remove(knowledge);
+   if let Some(knowledge) = to_json.knowledges.iter().position(|x| x.id == id) {
+      to_json.knowledges.remove(knowledge);
    }
 
-   fs::write(getFilePath(), serde_json::to_string(&toJson).unwrap()).unwrap();
+   fs::write(get_file_path(), serde_json::to_string(&to_json).unwrap()).unwrap();
 }
 
-fn updateKnowledgeData(id: i8, name: String, image: String, link: String) {
-   initSaveFile();
-   deleteKnowledgeData(id);
-   addKnowledgeData(name, image, link, Some(id));
+fn update_knowledge_data(id: i8, name: String, image: String, link: String) {
+   init_save_file();
+   delete_knowledge_data(id);
+   add_knowledge_data(name, image, link, Some(id));
 }
 
-fn getKnowledgesData() -> Vec<Knowledge> {
-   let fileContent = fs::read_to_string(getFilePath()).unwrap();
-   let toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
-   toJson.knowledges
+fn get_knowledges_data() -> Vec<Knowledge> {
+   let file_content = fs::read_to_string(get_file_path()).unwrap();
+   let to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
+   to_json.knowledges
 }
 
-fn findKnowledgeById(id: i8) -> Knowledge {
-   let fileContent = fs::read_to_string(getFilePath()).unwrap();
-   let mut toJson: Calypso = serde_json::from_str(fileContent.as_str()).unwrap();
-   for knowledge in toJson.knowledges {
+fn find_knowledge_by_id(id: i8) -> Knowledge {
+   let file_content = fs::read_to_string(get_file_path()).unwrap();
+   let to_json: Calypso = serde_json::from_str(file_content.as_str()).unwrap();
+   for knowledge in to_json.knowledges {
       if knowledge.id == id {
          return knowledge
       }
@@ -67,34 +67,34 @@ fn findKnowledgeById(id: i8) -> Knowledge {
 }
 
 #[tauri::command]
-pub fn add_knowledge_data(name: String, image: String, link: String) -> Vec<Knowledge> {
-   initSaveFile();
-   addKnowledgeData(name, image, link, None);
-   getKnowledgesData()
+pub fn add_knowledge(name: String, image: String, link: String) -> Vec<Knowledge> {
+   init_save_file();
+   add_knowledge_data(name, image, link, None);
+   get_knowledges_data()
 }
 
 #[tauri::command]
-pub fn update_knowledge_data(id: i8, name: String, image: String, link: String) -> Vec<Knowledge> {
-   initSaveFile();
-   updateKnowledgeData(id, name, image, link);
-   getKnowledgesData()
+pub fn update_knowledge(id: i8, name: String, image: String, link: String) -> Vec<Knowledge> {
+   init_save_file();
+   update_knowledge_data(id, name, image, link);
+   get_knowledges_data()
 }
 
 #[tauri::command]
-pub fn request_knowledges_data() -> Vec<Knowledge> {
-   initSaveFile();
-   getKnowledgesData()
+pub fn request_knowledges() -> Vec<Knowledge> {
+   init_save_file();
+   get_knowledges_data()
 }
 
 #[tauri::command]
-pub fn request_knowledge_data_by_id(id: i8) -> Knowledge {
-   initSaveFile();
-   findKnowledgeById(id)
+pub fn request_knowledge_by_id(id: i8) -> Knowledge {
+   init_save_file();
+   find_knowledge_by_id(id)
 }
 
 #[tauri::command]
-pub fn delete_knowledge_data(id: i8) -> Vec<Knowledge> {
-   initSaveFile();
-   deleteKnowledgeData(id);
-   getKnowledgesData()
+pub fn delete_knowledge(id: i8) -> Vec<Knowledge> {
+   init_save_file();
+   delete_knowledge_data(id);
+   get_knowledges_data()
 }

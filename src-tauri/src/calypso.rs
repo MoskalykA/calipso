@@ -24,34 +24,34 @@ pub struct Calypso {
   pub ideas: Vec <Idea>
 }
 
-pub fn getFilePath() -> String {
+pub fn get_file_path() -> String {
    FILE_PATH.clone()
 }
 
-fn getDirPath() -> String {
+fn get_dir_path() -> String {
    DIR_PATH.clone()
 }
 
-fn fileExists() -> bool {
-   Path::new(&getFilePath()).exists()
+fn file_exists() -> bool {
+   Path::new(&get_file_path()).exists()
 }
 
-fn dirExists() -> bool {
-   Path::new(&getDirPath()).exists()
+fn dir_exists() -> bool {
+   Path::new(&get_dir_path()).exists()
 }
 
-pub fn initSaveFile() {
-   if fileExists() {
+pub fn init_save_file() {
+   if file_exists() {
       return
    }
 
-   if !dirExists() {
-      fs::create_dir(getDirPath()).unwrap();
+   if !dir_exists() {
+      fs::create_dir(get_dir_path()).unwrap();
    }
 
-   let dataBase = Calypso {
+   let data_base = Calypso {
       knowledges: Vec::new(),
       ideas: Vec::new()
    };
-   fs::write(FILE_PATH.clone(), serde_json::to_string(&dataBase).unwrap()).unwrap();
+   fs::write(FILE_PATH.clone(), serde_json::to_string(&data_base).unwrap()).unwrap();
 }

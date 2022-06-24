@@ -27,7 +27,7 @@ function Create() {
 
                 <div className="flex justify-center items-center mt-8">
                     <Link to={"/ideas/index"} onClick={() => {
-                        invoke("add_idea_data", {
+                        invoke("add_idea", {
                             name,
                             description
                         })
