@@ -5,30 +5,25 @@ import { Link, useParams } from "react-router-dom"
  
 function Update() {
     const { id } = useParams()
-    const refName = useRef<HTMLInputElement>(null)
-    const refImage = useRef<HTMLInputElement>(null)
-    const refLink = useRef<HTMLInputElement>(null)
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
     const [link, setLink] = useState("")
+    const refName = useRef<HTMLInputElement>(null)
+    const refImage = useRef<HTMLInputElement>(null)
+    const refLink = useRef<HTMLInputElement>(null)
     useEffect(() => {
-        setTimeout(() => {
-            invoke("request_knowledge_data_by_id", {
-                id: Number(id)
-            })
-        }, 100)
+        invoke("request_knowledge_data_by_id", {
+            id: Number(id)
+        }).then((data: any) => {
+            refName.current!.value = data.name
+            refImage.current!.value = data.image
+            refLink.current!.value = data.link
+    
+            setName(data.name)
+            setImage(data.image)
+            setLink(data.link)
+        })
     }, [])
-
-    listen("sendKnowledge", (e: { payload: string }) => {
-        const parse = JSON.parse(e.payload)
-        refName.current!.value = parse.name
-        refImage.current!.value = parse.image
-        refLink.current!.value = parse.link
-
-        setName(parse.name)
-        setImage(parse.image)
-        setLink(parse.link)
-    })
 
     return (
         <div className="flex justify-center items-center h-screen">

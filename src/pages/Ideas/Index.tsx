@@ -1,21 +1,16 @@
 import { FcAddImage } from "react-icons/fc"
 import { Link } from "react-router-dom"
-import { listen } from "@tauri-apps/api/event"
 import { invoke } from "@tauri-apps/api/tauri"
 import { useEffect, useState } from "react"
+import IdeaType from "../../types/Idea"
 
 function Index() {
-    const [data, setData] = useState([])
+    const [data, setData] = useState<IdeaType[]>([])
     useEffect(() => {
-        setTimeout(() => {
-            invoke("request_ideas_data")
-        }, 100)
+        invoke("request_ideas_data").then((data: any) => {
+            setData(data)
+        })
     }, [])
-
-    listen("sendIdeas", (e: { payload: string }) => {
-        const parse = JSON.parse(e.payload)
-        setData(parse)
-    })
 
     return (
         <div>
@@ -39,6 +34,8 @@ function Index() {
                                 <button onClick={() => {
                                     invoke("delete_idea_data", {
                                         id: ideas.id
+                                    }).then((data: any) => {
+                                        setData(data)
                                     })
                                 }} className="cool-button font-mono font-normal">
                                     <h1>Delete</h1>

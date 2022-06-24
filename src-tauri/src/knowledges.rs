@@ -1,6 +1,5 @@
 use std::fs;
 use serde::{Deserialize, Serialize};
-use tauri::Window;
 use crate::calypso::{Calypso, initSaveFile, getFilePath};
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -67,48 +66,35 @@ fn findKnowledgeById(id: i8) -> Knowledge {
    Knowledge::default()
 }
 
-fn sendKnowledges(window: Window) {
-   let knowledgesData = getKnowledgesData();
-   let fromJson = serde_json::to_string(&knowledgesData).unwrap();
-   window.emit("sendKnowledges", fromJson).unwrap();
-}
-
-fn sendKnowledge(window: Window, knowledge: Knowledge) {
-   let fromJson = serde_json::to_string(&knowledge).unwrap();
-   window.emit("sendKnowledge", fromJson).unwrap();
-}
-
 #[tauri::command]
-pub fn add_knowledge_data(window: Window, name: String, image: String, link: String) {
+pub fn add_knowledge_data(name: String, image: String, link: String) -> Vec<Knowledge> {
    initSaveFile();
    addKnowledgeData(name, image, link, None);
-   sendKnowledges(window);
+   getKnowledgesData()
 }
 
 #[tauri::command]
-pub fn update_knowledge_data(window: Window, id: i8, name: String, image: String, link: String) {
+pub fn update_knowledge_data(id: i8, name: String, image: String, link: String) -> Vec<Knowledge> {
    initSaveFile();
    updateKnowledgeData(id, name, image, link);
-   sendKnowledges(window);
+   getKnowledgesData()
 }
 
 #[tauri::command]
-pub fn request_knowledges_data(window: Window) {
+pub fn request_knowledges_data() -> Vec<Knowledge> {
    initSaveFile();
-   sendKnowledges(window);
+   getKnowledgesData()
 }
 
 #[tauri::command]
-pub fn request_knowledge_data_by_id(window: Window, id: i8) {
+pub fn request_knowledge_data_by_id(id: i8) -> Knowledge {
    initSaveFile();
-   
-   let knowledgeData = findKnowledgeById(id);
-   sendKnowledge(window, knowledgeData);
+   findKnowledgeById(id)
 }
 
 #[tauri::command]
-pub fn delete_knowledge_data(window: Window, id: i8) {
+pub fn delete_knowledge_data(id: i8) -> Vec<Knowledge> {
    initSaveFile();
    deleteKnowledgeData(id);
-   sendKnowledges(window);
+   getKnowledgesData()
 }

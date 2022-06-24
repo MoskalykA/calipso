@@ -1,6 +1,5 @@
 use std::fs;
 use serde::{Deserialize, Serialize};
-use tauri::Window;
 use crate::calypso::{Calypso, initSaveFile, getFilePath};
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Idea {
@@ -65,48 +64,35 @@ fn findIdeaById(id: i8) -> Idea {
    Idea::default()
 }
 
-fn sendIdeas(window: Window) {
-   let ideasData = getIdeasData();
-   let fromJson = serde_json::to_string(&ideasData).unwrap();
-   window.emit("sendIdeas", fromJson).unwrap();
-}
-
-fn sendIdea(window: Window, idea: Idea) {
-   let fromJson = serde_json::to_string(&idea).unwrap();
-   window.emit("sendIdea", fromJson).unwrap();
-}
-
 #[tauri::command]
-pub fn add_idea_data(window: Window, name: String, description: String) {
+pub fn add_idea_data(name: String, description: String) -> Vec<Idea> {
    initSaveFile();
    addIdeaData(name, description, None);
-   sendIdeas(window);
+   getIdeasData()
 }
 
 #[tauri::command]
-pub fn update_idea_data(window: Window, id: i8, name: String, description: String) {
+pub fn update_idea_data(id: i8, name: String, description: String) -> Vec<Idea> {
    initSaveFile();
    updateIdeaData(id, name, description);
-   sendIdeas(window);
+   getIdeasData()
 }
 
 #[tauri::command]
-pub fn request_ideas_data(window: Window) {
+pub fn request_ideas_data() -> Vec<Idea> {
    initSaveFile();
-   sendIdeas(window);
+   getIdeasData()
 }
 
 #[tauri::command]
-pub fn request_idea_data_by_id(window: Window, id: i8) {
+pub fn request_idea_data_by_id(id: i8) -> Idea {
    initSaveFile();
-   
-   let ideaData = findIdeaById(id);
-   sendIdea(window, ideaData);
+   findIdeaById(id)
 }
 
 #[tauri::command]
-pub fn delete_idea_data(window: Window, id: i8) {
+pub fn delete_idea_data(id: i8) -> Vec<Idea> {
    initSaveFile();
    deleteIdeaData(id);
-   sendIdeas(window);
+   getIdeasData()
 }

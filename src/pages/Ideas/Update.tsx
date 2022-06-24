@@ -1,30 +1,24 @@
 import { useEffect, useState, useRef } from "react"
 import { invoke } from "@tauri-apps/api/tauri"
-import { listen } from "@tauri-apps/api/event"
 import { Link, useParams } from "react-router-dom"
  
 function Update() {
     const { id } = useParams()
-    const refName = useRef<HTMLInputElement>(null)
-    const refDescription = useRef<HTMLTextAreaElement>(null)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
+    const refName = useRef<HTMLInputElement>(null)
+    const refDescription = useRef<HTMLTextAreaElement>(null)
     useEffect(() => {
-        setTimeout(() => {
-            invoke("request_idea_data_by_id", {
-                id: Number(id)
-            })
-        }, 100)
+        invoke("request_idea_data_by_id", {
+            id: Number(id)
+        }).then((data: any) => {
+            refName.current!.value = data.name
+            refDescription.current!.value = data.description
+    
+            setName(data.name)
+            setDescription(data.description)
+        })
     }, [])
-
-    listen("sendIdea", (e: { payload: string }) => {
-        const parse = JSON.parse(e.payload)
-        refName.current!.value = parse.name
-        refDescription.current!.value = parse.description
-
-        setName(parse.name)
-        setDescription(parse.description)
-    })
 
     return (
         <div className="flex justify-center items-center h-screen">

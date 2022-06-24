@@ -1,21 +1,16 @@
 import { FcAddImage } from "react-icons/fc"
 import { Link } from "react-router-dom"
-import { listen } from "@tauri-apps/api/event"
 import { invoke } from "@tauri-apps/api/tauri"
 import { useEffect, useState } from "react"
+import KnowledgeType from "../../types/Knowledge"
 
 function Index() {
-    const [data, setData] = useState([])
+    const [data, setData] = useState<KnowledgeType[]>([])
     useEffect(() => {
-        setTimeout(() => {
-            invoke("request_knowledges_data")
-        }, 100)
+        invoke("request_knowledges_data").then((data: any) => {
+            setData(data)
+        })
     }, [])
-
-    listen("sendKnowledges", (e: { payload: string }) => {
-        const parse = JSON.parse(e.payload)
-        setData(parse)
-    })
 
     return (
         <div>
@@ -39,6 +34,8 @@ function Index() {
                                 <button onClick={() => {
                                     invoke("delete_knowledge_data", {
                                         id: knowledges.id
+                                    }).then((data: any) => {
+                                        setData(data)
                                     })
                                 }} className="cool-button font-mono font-normal">
                                     <h1>Delete</h1>
