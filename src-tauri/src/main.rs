@@ -6,6 +6,7 @@
 mod calypso;
 mod knowledges;
 mod ideas;
+mod settings;
 
 #[macro_use]
 extern crate lazy_static;

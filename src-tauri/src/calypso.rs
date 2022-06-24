@@ -3,6 +3,7 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 use crate::knowledges::Knowledge;
 use crate::ideas::Idea;
+use crate::settings::Settings;
 
 lazy_static! {
    static ref DIR_PATH: String = if cfg!(dev) {
@@ -21,7 +22,8 @@ lazy_static! {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Calypso {
   pub knowledges: Vec<Knowledge>,
-  pub ideas: Vec <Idea>
+  pub ideas: Vec<Idea>,
+  pub settings: Settings
 }
 
 pub fn get_file_path() -> String {
@@ -51,7 +53,8 @@ pub fn init_save_file() {
 
    let data_base = Calypso {
       knowledges: Vec::new(),
-      ideas: Vec::new()
+      ideas: Vec::new(),
+      settings: Settings::default()
    };
    fs::write(FILE_PATH.clone(), serde_json::to_string(&data_base).unwrap()).unwrap();
 }

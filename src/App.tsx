@@ -1,5 +1,9 @@
-import {Route, Routes, Link} from "react-router-dom"
-import {FcHome, FcIdea, FcSettings, FcFolder} from "react-icons/fc"
+import { listen } from "@tauri-apps/api/event"
+import { useState } from "react"
+import { FaGithub } from "react-icons/fa"
+import { Route, Routes, Link } from "react-router-dom"
+import { FcHome, FcIdea, FcSettings, FcFolder } from "react-icons/fc"
+
 import Home from "./pages/Home"
 
 import IdeasIndex from "./pages/Ideas/Index"
@@ -11,9 +15,7 @@ import KnowledgesIndex from "./pages/Knowledges/Index"
 import KnowledgesCreate from "./pages/Knowledges/Create"
 import KnowledgesUpdate from "./pages/Knowledges/Update"
 
-import { listen } from "@tauri-apps/api/event"
-import { useState } from "react"
-import { FaGithub } from "react-icons/fa"
+import SettingsIndex from "./pages/Settings/Index"
 
 function App() {
     const [error, setError] = useState<string | null>(null)
@@ -55,7 +57,7 @@ function App() {
                         </div>
 
                         <div>
-                            <Link to="/settings" className="cool-button">
+                            <Link to="/settings/index" className="cool-button">
                                 <FcSettings/>
                                 <h1>Settings</h1>
                             </Link>
@@ -76,7 +78,7 @@ function App() {
                             <Route path="/knowledges/create" element={<KnowledgesCreate/>}/>
                             <Route path="/knowledges/update/:id" element={<KnowledgesUpdate/>}/>
 
-                            <Route path="/settings" element={<Home/>}/>
+                            <Route path="/settings/index" element={<SettingsIndex/>}/>
                         </Routes>
                     </div>
                 </div>
