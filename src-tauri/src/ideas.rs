@@ -85,6 +85,12 @@ pub fn request_ideas() -> Vec<Idea> {
 }
 
 #[tauri::command]
+pub fn request_idea_count() -> usize {
+   init_save_file();
+   get_ideas_data().len()
+}
+
+#[tauri::command]
 pub fn request_idea_by_id(id: i8) -> Idea {
    init_save_file();
    find_idea_by_id(id)

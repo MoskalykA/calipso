@@ -11,8 +11,8 @@ mod settings;
 #[macro_use]
 extern crate lazy_static;
 
-use crate::knowledges::{add_knowledge, update_knowledge, request_knowledges, request_knowledge_by_id, delete_knowledge};
-use crate::ideas::{add_idea, update_idea, request_ideas, request_idea_by_id, delete_idea};
+use crate::knowledges::{add_knowledge, update_knowledge, request_knowledges, request_knowledge_by_id, delete_knowledge, request_knowledge_count};
+use crate::ideas::{add_idea, update_idea, request_ideas, request_idea_by_id, delete_idea, request_idea_count};
 
 fn main() {
   tauri::Builder::default()
@@ -22,12 +22,14 @@ fn main() {
       request_knowledges, 
       request_knowledge_by_id, 
       delete_knowledge,
+      request_knowledge_count,
 
       add_idea, 
       update_idea, 
       request_ideas, 
       request_idea_by_id, 
-      delete_idea
+      delete_idea,
+      request_idea_count
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

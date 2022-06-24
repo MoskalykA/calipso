@@ -87,6 +87,12 @@ pub fn request_knowledges() -> Vec<Knowledge> {
 }
 
 #[tauri::command]
+pub fn request_knowledge_count() -> usize {
+   init_save_file();
+   get_knowledges_data().len()
+}
+
+#[tauri::command]
 pub fn request_knowledge_by_id(id: i8) -> Knowledge {
    init_save_file();
    find_knowledge_by_id(id)
