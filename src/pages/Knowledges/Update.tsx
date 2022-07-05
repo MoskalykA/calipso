@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react"
 import { invoke } from "@tauri-apps/api/tauri"
-import { listen } from "@tauri-apps/api/event"
 import { Link, useParams } from "react-router-dom"
  
 function Update() {
