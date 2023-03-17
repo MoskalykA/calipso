@@ -1,7 +1,6 @@
 interface Idea {
-   id: number,
-   name: string,
-   description: string
+  name: string;
+  description: string;
 }
 
-export default Idea
+export default Idea;

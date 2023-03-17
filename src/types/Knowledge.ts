@@ -1,8 +1,7 @@
 interface Knowledge {
-   id: number,
-   name: string,
-   image: string,
-   link: string
+  name: string;
+  image: string;
+  link: string;
 }
 
-export default Knowledge
+export default Knowledge;
