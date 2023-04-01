@@ -16,7 +16,7 @@ function Index() {
 
   return (
     <div>
-      <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800 rounded">
+      <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800">
         <Link to={"/knowledges/create"}>
           <FcAddImage />
         </Link>
@@ -26,7 +26,7 @@ function Index() {
         {data.map((knowledges: Knowledge, index: number) => (
           <div
             key={index}
-            className="bg-zinc-800/50 rounded-lg hover:cursor-pointer rounded"
+            className="bg-zinc-800/50 rounded-lg hover:cursor-pointer"
           >
             <img className="rounded-t-lg" src={knowledges.image} alt="icon" />
 
