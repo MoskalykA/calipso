@@ -9,7 +9,7 @@ function Create() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-zinc-800/50 w-11/12 rounded-md rounded flex flex-col">
+      <div className="bg-zinc-800/50 w-11/12 rounded-md flex flex-col">
         <div className="m-4 space-y-4">
           <div>
             <h1 className="font-mono">Name</h1>
@@ -18,7 +18,7 @@ function Create() {
               onChange={(e: any) => {
                 setName(e.target.value);
               }}
-              className="p-1 w-full bg-zinc-900 rounded rounded font-mono text-white focus:outline-0"
+              className="p-1 w-full bg-zinc-900 rounded font-mono text-white focus:outline-0"
               type="text"
             />
           </div>
@@ -30,7 +30,7 @@ function Create() {
               onChange={(e: any) => {
                 setImage(e.target.value);
               }}
-              className="p-1 w-full bg-zinc-900 rounded rounded font-mono text-white focus:outline-0"
+              className="p-1 w-full bg-zinc-900 rounded font-mono text-white focus:outline-0"
               type="url"
             />
           </div>
@@ -42,7 +42,7 @@ function Create() {
               onChange={(e: any) => {
                 setLink(e.target.value);
               }}
-              className="p-1 w-full bg-zinc-900 rounded rounded font-mono text-white focus:outline-0"
+              className="p-1 w-full bg-zinc-900 rounded font-mono text-white focus:outline-0"
               type="url"
             />
           </div>

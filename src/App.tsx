@@ -78,7 +78,7 @@ function App() {
         </div>
       ) : (
         <div className="flex h-screen overflow-hidden">
-          <div className="flex flex-col bg-zinc-800/50 p-4 rounded rounded-r space-y-1.5">
+          <div className="flex flex-col bg-zinc-800/50 p-4 rounded-r-lg space-y-1.5">
             <a href="/" className="cool-button">
               <FcHome />
 
