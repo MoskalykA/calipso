@@ -20,14 +20,14 @@ function View() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-zinc-800/50 w-11/12 rounded-md rounded flex flex-col">
+      <div className="bg-zinc-800/50 w-11/12 rounded-md flex flex-col">
         <div className="m-4 space-y-4">
           <div className="space-y-1">
             <h1 className="font-quicksand">Name</h1>
 
             <input
               ref={refName}
-              className="p-1 w-full bg-zinc-900 rounded rounded font-quicksand text-white focus:outline-0"
+              className="p-1 w-full bg-zinc-900 rounded font-quicksand text-white focus:outline-0"
               type="text"
             />
           </div>
@@ -38,7 +38,7 @@ function View() {
             <textarea
               rows={8}
               ref={refDescription}
-              className="p-1 w-full bg-zinc-900 rounded rounded font-quicksand text-white focus:outline-0"
+              className="p-1 w-full bg-zinc-900 rounded font-quicksand text-white focus:outline-0"
             />
           </div>
         </div>
