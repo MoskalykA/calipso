@@ -16,11 +16,11 @@ function Index() {
 
   return (
     <div>
-      <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800">
-        <Link to={"/knowledges/create"}>
+      <Link to={"/knowledges/create"}>
+        <div className="mx-4 mt-4 p-4 bg-zinc-800/50 w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800 rounded">
           <FcAddImage />
-        </Link>
-      </div>
+        </div>
+      </Link>
 
       <div className="grid grid-cols-2 gap-4 p-4">
         {data.map((knowledges: Knowledge, index: number) => (
