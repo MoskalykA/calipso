@@ -18,7 +18,7 @@ function Home() {
 
   return (
     <div className="flex">
-      <div className="flex justify-between items-center p-4 m-4 w-full bg-zinc-800/50 cool-border">
+      <div className="flex justify-between items-center p-4 m-4 w-full bg-zinc-800/50 rounded">
         <FcIdea className="w-5 h-5 text-white" />
 
         <h1 className="font-mono">
@@ -26,7 +26,7 @@ function Home() {
         </h1>
       </div>
 
-      <div className="flex justify-between items-center p-4 m-4 w-full bg-zinc-800/50 cool-border">
+      <div className="flex justify-between items-center p-4 m-4 w-full bg-zinc-800/50 rounded">
         <FcFolder className="w-5 h-5 text-white" />
 
         <h1 className="font-mono">

@@ -16,7 +16,7 @@ function Index() {
 
   return (
     <div>
-      <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800 cool-border">
+      <div className="mx-4 mt-4 p-4 bg-zinc-800/50 rounded w-fit cool-transition hover:cursor-pointer hover:bg-zinc-800 rounded">
         <Link to={"/ideas/create"}>
           <FcAddImage />
         </Link>
@@ -26,7 +26,7 @@ function Index() {
         {data.map((idea: Idea, index: number) => (
           <div
             key={index}
-            className="bg-zinc-800/50 rounded-lg hover:cursor-pointer cool-border flex flex-col justify-center items-center"
+            className="bg-zinc-800/50 rounded-lg hover:cursor-pointer rounded flex flex-col justify-center items-center"
           >
             <div className="p-4 space-y-4">
               <h1 className="text-center font-mono font-semibold leading-none">

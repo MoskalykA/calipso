@@ -17,16 +17,13 @@ body {
 
 @layer components {
   .cool-button {
-    @apply border;
-    @apply border-zinc-700;
     @apply bg-zinc-900;
     @apply rounded;
     @apply font-medium;
     @apply flex;
     @apply justify-center;
     @apply items-center;
-    @apply px-2;
-    @apply py-1;
+    @apply p-2;
     @apply space-x-2;
     @apply transition-all;
     @apply ease-in-out;
@@ -34,10 +31,6 @@ body {
     @apply hover:bg-zinc-800;
     @apply hover:shadow-2xl;
     @apply hover:cursor-pointer;
-  }
-
-  .cool-border {
-    @apply border border-zinc-700 rounded;
   }
 
   .cool-transition {
