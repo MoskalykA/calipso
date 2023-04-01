@@ -11,7 +11,7 @@ function Create() {
     <div className="flex justify-center items-center h-screen">
       <div className="bg-zinc-800/50 w-11/12 rounded-md flex flex-col">
         <div className="m-4 space-y-4">
-          <div>
+          <div className="space-y-1">
             <h1 className="font-quicksand">Name</h1>
 
             <input
@@ -23,7 +23,7 @@ function Create() {
             />
           </div>
 
-          <div>
+          <div className="space-y-1">
             <h1 className="font-quicksand">Image</h1>
 
             <input
@@ -35,7 +35,7 @@ function Create() {
             />
           </div>
 
-          <div>
+          <div className="space-y-1">
             <h1 className="font-quicksand">Link</h1>
 
             <input
