@@ -65,7 +65,7 @@ function App() {
       {error ? (
         <div className="flex flex-col justify-center items-center h-screen">
           <div className="w-1/2 p-4 flex flex-col space-y-2 bg-zinc-900 border border-zinc-700 rounded">
-            <h1 className="text-white font-mono">{error}</h1>
+            <h1 className="text-white font-quicksand">{error}</h1>
 
             <a
               href="https://github.com/MoskalykA/calypso"
@@ -79,19 +79,25 @@ function App() {
       ) : (
         <div className="flex h-screen overflow-hidden">
           <div className="flex flex-col bg-zinc-800/50 p-4 rounded-r-lg space-y-1.5">
-            <a href="/" className="cool-button">
+            <a href="/" className="font-quicksand font-semibold cool-button">
               <FcHome />
 
               <h1>Home</h1>
             </a>
 
-            <a href="/ideas/index" className="cool-button">
+            <a
+              href="/ideas/index"
+              className="font-quicksand font-semibold cool-button"
+            >
               <FcIdea />
 
               <h1>Ideas</h1>
             </a>
 
-            <a href="/knowledges/index" className="cool-button">
+            <a
+              href="/knowledges/index"
+              className="font-quicksand font-semibold cool-button"
+            >
               <FcFolder />
 
               <h1>Knowledges</h1>

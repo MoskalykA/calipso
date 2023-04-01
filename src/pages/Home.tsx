@@ -21,7 +21,7 @@ function Home() {
       <div className="flex justify-between items-center p-4 m-4 w-full bg-zinc-800/50 rounded">
         <FcIdea className="w-5 h-5 text-white" />
 
-        <h1 className="font-mono">
+        <h1 className="font-quicksand">
           {ideaCount === 0 ? `No idea` : `${ideaCount} ideas`}
         </h1>
       </div>
@@ -29,7 +29,7 @@ function Home() {
       <div className="flex justify-between items-center p-4 m-4 w-full bg-zinc-800/50 rounded">
         <FcFolder className="w-5 h-5 text-white" />
 
-        <h1 className="font-mono">
+        <h1 className="font-quicksand">
           {knowledgeCount === 0
             ? `No knowledge`
             : `${knowledgeCount} knowledges`}

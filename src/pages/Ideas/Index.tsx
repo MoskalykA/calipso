@@ -29,21 +29,21 @@ function Index() {
             className="bg-zinc-800/50 rounded-lg hover:cursor-pointer flex flex-col justify-center items-center"
           >
             <div className="p-4 space-y-4">
-              <h1 className="text-center font-mono font-semibold leading-none">
+              <h1 className="text-center font-quicksand font-semibold leading-none">
                 {idea.name}
               </h1>
 
               <div className="flex justify-center items-center space-x-4">
                 <Link
                   to={`/ideas/view/${index}`}
-                  className="cool-button font-mono font-normal"
+                  className="cool-button font-quicksand font-normal"
                 >
                   <h1>Open</h1>
                 </Link>
 
                 <Link
                   to={`/ideas/update/${index}`}
-                  className="cool-button font-mono font-normal"
+                  className="cool-button font-quicksand font-normal"
                 >
                   <h1>Update</h1>
                 </Link>
@@ -56,7 +56,7 @@ function Index() {
                       setData(data);
                     });
                   }}
-                  className="cool-button font-mono font-normal"
+                  className="cool-button font-quicksand font-normal"
                 >
                   <h1>Delete</h1>
                 </button>

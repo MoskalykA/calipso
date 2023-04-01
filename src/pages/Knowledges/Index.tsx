@@ -31,7 +31,7 @@ function Index() {
             <img className="rounded-t-lg" src={knowledges.image} alt="icon" />
 
             <div className="p-4 space-y-4 flex flex-col">
-              <h1 className="text-center font-mono font-semibold leading-none">
+              <h1 className="text-center font-quicksand font-semibold leading-none">
                 {knowledges.name}
               </h1>
 
@@ -39,14 +39,14 @@ function Index() {
                 <a
                   target="_blank"
                   href={knowledges.link}
-                  className="cool-button font-mono font-normal"
+                  className="cool-button font-quicksand font-normal"
                 >
                   Open
                 </a>
 
                 <Link
                   to={`/knowledges/update/${index}`}
-                  className="cool-button font-mono font-normal"
+                  className="cool-button font-quicksand font-normal"
                 >
                   <h1>Update</h1>
                 </Link>
@@ -59,7 +59,7 @@ function Index() {
                       setData(data);
                     });
                   }}
-                  className="cool-button font-mono font-normal"
+                  className="cool-button font-quicksand font-normal"
                 >
                   <h1>Delete</h1>
                 </button>
